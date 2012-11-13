@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ImageButton
+	    android:id="@+id/doneb"
+	    android:contentDescription="@string/image_description"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:src="@drawable/donebutton" />
+
+	<TextView
+	    android:id="@+id/task"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/doneb"
+	    android:layout_alignParentLeft="true"
+	    android:layout_toLeftOf="@+id/doneb"
+	    android:textColor="#32cd32"
+	    android:textSize="14sp"
+	    android:textStyle="bold" />
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">ToDoProject</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="done">Done Button</string>
+    <string name="title_activity_task_view_image">TaskViewImageActivity</string>
+    <string name="image_description">Done Button</string>
+
+</resources>
