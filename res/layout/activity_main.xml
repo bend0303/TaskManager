@@ -4,7 +4,17 @@
 	android:layout_width="fill_parent"
  	android:layout_height="fill_parent">
 	
-	 <ListView 
-	 	android:layout_height="wrap_content"
-	 	android:layout_width="fill_parent" android:id="@+id/listV_main"/>
+	 <ListView
+	     android:id="@+id/listV_main"
+	     android:layout_width="fill_parent"
+	     android:layout_height="388dp"
+	     android:clickable="true" />
+
+	 <ImageButton
+	     android:id="@+id/addButton"
+	     android:contentDescription="done_button"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:src="@drawable/addbutton" />
+
 </LinearLayout>

@@ -1,19 +1,43 @@
 package com.example.todoproject;
 
+import java.util.Date;
+
 public class taskDetails {
-	public String getTaskName() {
-		return taskName;
+	private String taskTitle;
+	private String taskDesc;
+	private int taskId;
+	private static int taskIdRunner = 0;
+	private Date creationTimeStamp;
+	
+	public taskDetails(String title, String desc)
+	{
+		taskId = ++taskIdRunner;
+		taskTitle = title;
+		setTaskDesc(desc);
+		
 	}
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
+	public String getTaskTitle() {
+		return taskTitle;
+	}
+	public void setTaskTitle(String inputTaskName) {
+		taskTitle = inputTaskName;
 	}
 	public double getTaskId() {
 		return taskId;
 	}
-	public void setTaskId(double taskId) {
-		this.taskId = taskId;
+
+	public Date getCreationTimeStamp() {
+		return creationTimeStamp;
 	}
-	private String taskName;
-	private double taskId;
+	public void setCreationTimeStamp(Date inputCreationTimeStamp) {
+		creationTimeStamp = inputCreationTimeStamp;
+	}
+	public String getTaskDesc() {
+		return taskDesc;
+	}
+	public void setTaskDesc(String taskDesc) {
+		this.taskDesc = taskDesc;
+	}
+	
 
 }

@@ -7,5 +7,9 @@
     <string name="done">Done Button</string>
     <string name="title_activity_task_view_image">TaskViewImageActivity</string>
     <string name="image_description">Done Button</string>
+    <string name="title_activity_task_add">TaskAddActivity</string>
+    <string name="formTaskTitle">Title:</string>
+    <string name="enterText">Enter Your Text Here</string>
+    <string name="formTaskDesc">Description:</string>
 
 </resources>

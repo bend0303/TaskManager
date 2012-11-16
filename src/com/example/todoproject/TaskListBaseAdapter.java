@@ -1,3 +1,4 @@
+
 package com.example.todoproject;
 
 import java.util.ArrayList;
@@ -11,21 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TaskListBaseAdapter extends BaseAdapter {
-	private static ArrayList<taskDetails> tasksDetailsrrayList;
-
+	private TaskDataBastModule tasksDataModule;
 	private LayoutInflater l_Inflater;
 
 	public TaskListBaseAdapter(Context context, ArrayList<taskDetails> results) {
-		tasksDetailsrrayList = results;
+		tasksDataModule = TaskDataBastModule.getInstance(results);
 		l_Inflater = LayoutInflater.from(context);
 	}
 
 	public int getCount() {
-		return tasksDetailsrrayList.size();
+		return tasksDataModule.getCount();
 	}
 
-	public Object getItem(int position) {
-		return tasksDetailsrrayList.get(position);
+	public taskDetails getItem(int position) {
+		return tasksDataModule.getTask(position);
 	}
 
 	public long getItemId(int position) {
@@ -38,12 +38,12 @@ public class TaskListBaseAdapter extends BaseAdapter {
 			convertView = l_Inflater.inflate(R.layout.task_view, null);
 			holder = new ViewHolder();
 			holder.txt_taskName = (TextView) convertView.findViewById(R.id.task);
+			convertView.setClickable(true);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		holder.txt_taskName.setText(tasksDetailsrrayList.get(position).getTaskName());
+		holder.txt_taskName.setText(tasksDataModule.getTask(position).getTaskTitle());
 		return convertView;
 	}
 

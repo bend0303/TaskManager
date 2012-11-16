@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false" >
+
+    <TextView
+        android:id="@+id/taskTitleCom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/formTaskTitle" />
+
+    <EditText
+        android:id="@+id/taskTitleInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/taskTitleCom"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/taskDescComp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/taskTitleCom"
+        android:layout_below="@+id/taskTitleInput"
+        android:layout_marginTop="26dp"
+        android:text="@string/formTaskDesc" />
+
+    <EditText
+        android:id="@+id/taskDescInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/taskDescComp"
+        android:ems="10"
+        android:inputType="text" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:contentDescription="@string/image_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/addbutton"
+        android:onClick="createTask" />
+
+</RelativeLayout>
