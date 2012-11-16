@@ -10,7 +10,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-//test
+//test number 2
 public class TaskAddActivity extends Activity {
 
 	EditText taskTitle,taskDesc;
