@@ -1,18 +1,20 @@
 package com.example.todoproject;
 
-import java.util.Date;
+import java.util.Comparator;
+
 
 public class taskDetails {
 	private String taskTitle;
 	private String taskDesc;
 	private int taskId;
 	private static int taskIdRunner = 0;
-	private Date creationTimeStamp;
+	private double creationTimeStamp;
 	
 	public taskDetails(String title, String desc)
 	{
 		taskId = ++taskIdRunner;
 		taskTitle = title;
+		creationTimeStamp = System.currentTimeMillis();
 		setTaskDesc(desc);
 		
 	}
@@ -26,10 +28,10 @@ public class taskDetails {
 		return taskId;
 	}
 
-	public Date getCreationTimeStamp() {
+	public Double getCreationTimeStamp() {
 		return creationTimeStamp;
 	}
-	public void setCreationTimeStamp(Date inputCreationTimeStamp) {
+	public void setCreationTimeStamp(Double inputCreationTimeStamp) {
 		creationTimeStamp = inputCreationTimeStamp;
 	}
 	public String getTaskDesc() {
@@ -38,6 +40,18 @@ public class taskDetails {
 	public void setTaskDesc(String taskDesc) {
 		this.taskDesc = taskDesc;
 	}
-	
+
+
+	public static class DateCompe implements Comparator<taskDetails>
+	{
+
+		@Override
+		public int compare(taskDetails lhs, taskDetails rhs) {
+			// TODO Auto-generated method stub
+			return (int) (rhs.getCreationTimeStamp() - lhs.getCreationTimeStamp());
+		}
+
+
+	}
 
 }

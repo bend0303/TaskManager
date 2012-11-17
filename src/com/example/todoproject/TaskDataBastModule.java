@@ -1,6 +1,7 @@
 package com.example.todoproject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TaskDataBastModule {
 
@@ -39,6 +40,10 @@ public class TaskDataBastModule {
 	
 	public taskDetails getTask(int pos) {
 		return tasks.get(pos);
+	}
+	
+	public void sortTasks() {
+		Collections.sort(tasks, new taskDetails.DateCompe());
 	}
 	
 }

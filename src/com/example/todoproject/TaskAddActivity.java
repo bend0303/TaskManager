@@ -38,6 +38,7 @@ public class TaskAddActivity extends Activity {
     	Intent intent = new Intent(this, TaskViewImageActivity.class);
     	taskDetails newTask = new taskDetails(taskTitle.getText().toString(), taskDesc.getText().toString());     	TaskDataBastModule tasks = TaskDataBastModule.getInstance();
     	tasks.getTasks().add(newTask);
+    	tasks.sortTasks();
     	startActivity(intent);
     	
     }

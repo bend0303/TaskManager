@@ -1,6 +1,9 @@
 package com.example.todoproject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,19 +35,19 @@ public class TaskViewImageActivity extends Activity {
 			}
 		});
 		lv1.setAdapter(new TaskListBaseAdapter(this, tasks));
-		lv1.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-
-			public void onItemClick(AdapterView<?> a, View v, int position, long id) { 
-				try {
-					Object o = lv1.getItemAtPosition(position);
-					taskDetails taskDetailsObject = (taskDetails) o;
-					Toast.makeText(getApplicationContext(), taskDetailsObject.getTaskDesc(), Toast.LENGTH_LONG).show();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} );
+			
+//			@Override
+//
+//			public void onItemClick(AdapterView<?> a, View v, int position, long id) { 
+//				try {
+//					Object o = lv1.getItemAtPosition(position);
+//					taskDetails taskDetailsObject = (taskDetails) o;
+//					Toast.makeText(getApplicationContext(), taskDetailsObject.getTaskDesc(), Toast.LENGTH_LONG).show();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		} );
 	
 
 
@@ -64,6 +67,7 @@ public class TaskViewImageActivity extends Activity {
 		result.add(t3);
 		result.add(t4);
 		result.add(t5);
+		Collections.sort(result, new taskDetails.DateCompe());
 		return result;
 	}
 
