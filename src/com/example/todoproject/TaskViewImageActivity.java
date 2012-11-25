@@ -27,6 +27,7 @@ public class TaskViewImageActivity extends Activity {
 		final ListView lv1 = (ListView) findViewById(R.id.listV_main);
 		
 		ImageButton addButton = (ImageButton) findViewById(R.id.addButton);
+		lv1.setAdapter(new TaskListBaseAdapter(this, tasks));
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -34,7 +35,7 @@ public class TaskViewImageActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		lv1.setAdapter(new TaskListBaseAdapter(this, tasks));
+
 			
 //			@Override
 //
