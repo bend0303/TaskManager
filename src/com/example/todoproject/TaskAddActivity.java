@@ -3,15 +3,14 @@ package com.example.todoproject;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,8 +20,8 @@ import android.widget.TimePicker;
 public class TaskAddActivity extends Activity {
     private Button timeBtn;
 	private Button dateBtn;
-	DateFormat formatDateTime=DateFormat.getDateTimeInstance();
-	Calendar dateTime=Calendar.getInstance();
+	DateFormat formatDateTime = DateFormat.getDateTimeInstance();
+	Calendar dateTime = Calendar.getInstance();
 	private TextView timeLabel;
 	EditText taskTitle,taskDesc;
 	
@@ -96,7 +95,8 @@ public class TaskAddActivity extends Activity {
     public void createTask(View v)
     {
     	Intent intent = new Intent(this, TaskViewImageActivity.class);
-    	taskDetails newTask = new taskDetails(taskTitle.getText().toString(), taskDesc.getText().toString());     	TaskDataBastModule tasks = TaskDataBastModule.getInstance();
+    	TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(), taskDesc.getText().toString(), formatDateTime.toString(), System.currentTimeMillis());     
+    	TaskDataBastModule tasks = TaskDataBastModule.getInstance(getApplicationContext());
     	tasks.getTasks().add(newTask);
     	tasks.sortTasks();
     	startActivity(intent);

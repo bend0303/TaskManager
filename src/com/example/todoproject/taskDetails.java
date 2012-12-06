@@ -1,23 +1,48 @@
 package com.example.todoproject;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 
-public class taskDetails {
+public class TaskDetails implements Serializable{
+
+	private static final long serialVersionUID = -1282594779289783019L;
 	private String taskTitle;
 	private String taskDesc;
 	private int taskId;
-	private static int taskIdRunner = 0;
-	private double creationTimeStamp;
+	private String taskActionTime;
+	private double taskCreationTimeStamp;
 	
-	public taskDetails(String title, String desc)
-	{
-		taskId = ++taskIdRunner;
-		taskTitle = title;
-		creationTimeStamp = System.currentTimeMillis();
-		setTaskDesc(desc);
-		
+	
+	public String getTaskActionTime() {
+		return taskActionTime;
 	}
+
+	public void setTaskActionTime(String taskActionTime) {
+		this.taskActionTime = taskActionTime;
+	}
+
+	public TaskDetails(String taskTitle, String taskDesc,
+			String taskActionTime, double taskCreationTimeStamp) {
+		super();
+		this.taskTitle = taskTitle;
+		this.taskDesc = taskDesc;
+		this.taskActionTime = taskActionTime;
+		this.taskCreationTimeStamp = taskCreationTimeStamp;
+	}
+	
+	public TaskDetails(int taskId, String taskTitle, String taskDesc,
+			 double taskCreationTimeStamp, String taskActionTime) {
+		super();
+		this.taskTitle = taskTitle;
+		this.taskDesc = taskDesc;
+		this.taskId = taskId;
+		this.taskActionTime = taskActionTime;
+		this.taskCreationTimeStamp = taskCreationTimeStamp;
+	}
+	
+	public TaskDetails() {}
+
 	public String getTaskTitle() {
 		return taskTitle;
 	}
@@ -29,10 +54,10 @@ public class taskDetails {
 	}
 
 	public Double getCreationTimeStamp() {
-		return creationTimeStamp;
+		return taskCreationTimeStamp;
 	}
 	public void setCreationTimeStamp(Double inputCreationTimeStamp) {
-		creationTimeStamp = inputCreationTimeStamp;
+		taskCreationTimeStamp = inputCreationTimeStamp;
 	}
 	public String getTaskDesc() {
 		return taskDesc;
@@ -42,11 +67,11 @@ public class taskDetails {
 	}
 
 
-	public static class DateCompe implements Comparator<taskDetails>
+	public static class DateCompe implements Comparator<TaskDetails>
 	{
 
 		@Override
-		public int compare(taskDetails lhs, taskDetails rhs) {
+		public int compare(TaskDetails lhs, TaskDetails rhs) {
 			// TODO Auto-generated method stub
 			return (int) (rhs.getCreationTimeStamp() - lhs.getCreationTimeStamp());
 		}

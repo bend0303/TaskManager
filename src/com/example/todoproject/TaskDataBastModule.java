@@ -2,48 +2,143 @@ package com.example.todoproject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
-public class TaskDataBastModule {
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class TaskDataBastModule extends SQLiteOpenHelper {
 
 	private static TaskDataBastModule instance = null; 
-	private ArrayList<taskDetails> tasks;
-	private TaskDataBastModule() {
+	private ArrayList<TaskDetails> tasks;
+	
+	// All Static variables
+    // Database Version
+    private static final int DATABASE_VERSION = 1;
+ 
+    // Database Name
+    private static final String DATABASE_NAME = "tasksMenager";
+ 
+    // Tasks table name
+    private static final String TABLE_TASKS = "tasks";
+	
+    // Tasks Table Columns names
+    private static final String KEY_ID = "id";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_DESC = "description";
+    private static final String KEY_CRE_TIME = "creationTime";
+    private static final String KEY_DET_TIME = "determinedTime";
+	
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_TASKS + "("
+				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_TITLE + " TEXT," + KEY_DESC + " TEXT," + KEY_CRE_TIME + " TEXT,"
+				+ KEY_DET_TIME + " TEXT" + ")";
+		db.execSQL(CREATE_CONTACTS_TABLE);
+		
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		db.execSQL("DROP TABLE IF EXIST " + TABLE_TASKS);
+		//recreate table
+		onCreate(db);
+	}
+	
+	private TaskDataBastModule(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+	
+	public static TaskDataBastModule getInstance(Context context) {
+		if (instance == null) {
+			instance = new TaskDataBastModule(context);
+		}
+		return instance;
+	}
+
+	void addTask(TaskDetails task) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		
+		values.put(KEY_TITLE, task.getTaskTitle());
+		values.put(KEY_DESC, task.getTaskDesc());
+		values.put(KEY_CRE_TIME, task.getCreationTimeStamp());
+		values.put(KEY_DET_TIME, task.getTaskActionTime());
+		
+		db.insert(TABLE_TASKS, null, values);
+		db.close();
+		
+		tasks.add(task);
 		
 	}
 	
-	public static TaskDataBastModule getInstance() {
-		if (instance == null) {
-			instance = new TaskDataBastModule();
+	public TaskDetails getTask(int id) {
+		
+		for (TaskDetails t: tasks) {
+			if (t.getTaskId() == id)
+				return t;
 		}
-		return instance;
+		
+		return null;
 	}
 	
-	public static TaskDataBastModule getInstance(ArrayList<taskDetails> inputTasks) {
-		if (instance == null)	{
-			instance = new TaskDataBastModule();
-			instance.setTasks(inputTasks);
-		}
-		return instance;
+	public TaskDetails getTaskDB(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_TASKS, new String[] {KEY_ID, KEY_TITLE, KEY_DESC, KEY_CRE_TIME, KEY_DET_TIME },
+				KEY_ID +"=?", new String [] { String.valueOf(id)}, null, null, null);
+		if (cursor == null)
+			return null;
+		
+		cursor.moveToFirst();
+		TaskDetails task = new TaskDetails(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+				cursor.getString(2), Double.parseDouble(cursor.getString(3)), cursor.getString(4));
+		return task;
 	}
 	
-	public ArrayList<taskDetails> getTasks () {
+	public ArrayList<TaskDetails> getTasks () {
+		if (tasks == null) {
+			tasks = new ArrayList<TaskDetails>();
+			String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			
+			if (cursor.moveToFirst()) {
+				do {
+					TaskDetails task = new TaskDetails(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+							cursor.getString(2), Double.parseDouble(cursor.getString(3)), cursor.getString(4));
+					tasks.add(task);
+				} while(cursor.moveToNext());
+			} 
+		}
+		
 		return tasks;
+	}
+	
+	public void removeTask(int id) {
+		Iterator<TaskDetails> iter = tasks.iterator();
+		while (iter.hasNext()) {
+			if (((TaskDetails) iter).getTaskId() == id) {
+				tasks.remove((TaskDetails) iter);
+				SQLiteDatabase db = this.getWritableDatabase();
+				db.delete(TABLE_TASKS, KEY_ID + " = ?", new String[] {String.valueOf(id)});
+			}
+		}
 	}
 	
 	public int getCount() {
 		return tasks.size();
 	}
 	
-	private void setTasks(ArrayList<taskDetails> input) {
-		tasks = input;
-	}
-	
-	public taskDetails getTask(int pos) {
-		return tasks.get(pos);
+
+	public void remove(int pos) {
+		tasks.remove(pos);
 	}
 	
 	public void sortTasks() {
-		Collections.sort(tasks, new taskDetails.DateCompe());
+		Collections.sort(tasks, new TaskDetails.DateCompe());
 	}
-	
 }

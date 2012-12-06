@@ -16,9 +16,19 @@ public class TaskListBaseAdapter extends BaseAdapter {
 	private TaskDataBastModule tasksDataModule;
 	private LayoutInflater l_Inflater;
 	private Context context;
-
-	public TaskListBaseAdapter(Context context, ArrayList<taskDetails> results) {
-		tasksDataModule = TaskDataBastModule.getInstance(results);
+	private final OnClickListener doneButtonOnClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			int position = (Integer) v.getTag();
+			TaskDataBastModule.getInstance(context).remove(position);
+			notifyDataSetChanged();
+		}
+	};
+	
+	public TaskListBaseAdapter(Context context, ArrayList<TaskDetails> results) {
+		tasksDataModule = TaskDataBastModule.getInstance(context);
 		l_Inflater = LayoutInflater.from(context);
 		this.context = context;
 	}
@@ -27,7 +37,7 @@ public class TaskListBaseAdapter extends BaseAdapter {
 		return tasksDataModule.getCount();
 	}
 
-	public taskDetails getItem(int position) {
+	public TaskDetails getItem(int position) {
 		return tasksDataModule.getTask(position);
 	}
 
@@ -40,8 +50,9 @@ public class TaskListBaseAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = l_Inflater.inflate(R.layout.task_view, null);
 			holder = new ViewHolder();
-			holder.txt_taskName = (TextView) convertView
-					.findViewById(R.id.task);
+			holder.txt_taskName = (TextView) convertView.findViewById(R.id.task);
+			holder.itemImage = (ImageView) convertView.findViewById(R.id.doneb);
+			holder.itemImage.setOnClickListener(doneButtonOnClick);
 			convertView.setClickable(true);
 			convertView.setTag(holder);
 		} else {
@@ -57,7 +68,8 @@ public class TaskListBaseAdapter extends BaseAdapter {
 				Toast.makeText(context, "Task Desc: " + tasksDataModule.getTask(position).getTaskDesc(), Toast.LENGTH_LONG)
 						.show();
 			}
-		});
+		});	
+		holder.itemImage.setTag(position);
 		return convertView;
 	}
 
@@ -65,4 +77,6 @@ public class TaskListBaseAdapter extends BaseAdapter {
 		TextView txt_taskName;
 		ImageView itemImage;
 	}
+	
+
 }
