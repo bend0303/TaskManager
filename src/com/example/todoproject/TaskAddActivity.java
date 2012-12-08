@@ -78,8 +78,7 @@ public class TaskAddActivity extends Activity {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-			dateTime.set(Calendar.MINUTE,minute);
-			
+			dateTime.set(Calendar.MINUTE,minute);	
 			updateLabel();
 		}
 	};
@@ -96,9 +95,9 @@ public class TaskAddActivity extends Activity {
     {
     	Intent intent = new Intent(this, TaskViewImageActivity.class);
     	TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(), taskDesc.getText().toString(), formatDateTime.toString(), System.currentTimeMillis());     
-    	TaskDataBastModule tasks = TaskDataBastModule.getInstance(getApplicationContext());
-    	tasks.getTasks().add(newTask);
-    	tasks.sortTasks();
+    	TaskDataBastModule tasksModel = TaskDataBastModule.getInstance(getApplicationContext());
+    	tasksModel.addTask(newTask);
+    	tasksModel.sortTasks();
     	startActivity(intent);
     	
     }
