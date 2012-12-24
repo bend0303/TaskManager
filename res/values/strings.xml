@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">ToDoProject</string>
@@ -6,10 +7,18 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="done">Done Button</string>
     <string name="title_activity_task_view_image">TaskViewImageActivity</string>
+    <string name="title_activity_task_date_picker">DateTimePickerActivity</string>
+    <string name="time_text">Time Text</string>
+    <string name="set_date">Set Date</string>
+    <string name="edit_title">Enter Task Title</string>
+    <string name="edit_desc">Enter Task Description</string>
+    <string name="set_time">Set Time</string>
     <string name="image_description">Done Button</string>
     <string name="title_activity_task_add">TaskAddActivity</string>
     <string name="formTaskTitle">Title:</string>
     <string name="enterText">Enter Your Text Here</string>
     <string name="formTaskDesc">Description:</string>
+    <string name="title_activity_temp">MainActivity</string>
+    <string name="title_activity_task_single_view">TaskSingleViewActivity</string>
 
 </resources>

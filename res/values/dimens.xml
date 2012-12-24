@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="timedate_font_size">16px</dimen>
+    <dimen name="timedate_text_padding">10px</dimen>
+</resources>

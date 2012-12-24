@@ -1,19 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.todoproject"
+    package="il.co.shenkar.todoproject"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".TaskViewImageActivity"
-            android:label="@string/title_activity_task_view_image" >
+            android:name="il.co.shenkar.todoproject.TaskViewImageActivity"
+            android:label="@string/title_activity_task_view_image"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,13 +24,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TaskAddActivity"
+            android:name="il.co.shenkar.todoproject.TaskAddActivity"
             android:label="@string/title_activity_task_add" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <receiver android:name="il.co.shenkar.todoproject.ToDoBroadcastReciever" >
+            <intent-filter>
+                <action android:name="android.intent.action.TASKS" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="il.co.shenkar.todoproject.TaskSingleViewActivity"
+            android:label="@string/title_activity_task_single_view" >
         </activity>
     </application>
 
