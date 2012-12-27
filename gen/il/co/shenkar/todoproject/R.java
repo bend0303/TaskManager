@@ -32,18 +32,20 @@ public final class R {
     }
     public static final class id {
         public static final int addButton=0x7f080001;
-        public static final int dateBtn=0x7f080006;
-        public static final int doneb=0x7f08000a;
-        public static final int imageButton1=0x7f080009;
+        public static final int addTaskButton=0x7f080006;
+        public static final int cancelAddButton=0x7f08000b;
+        public static final int dateBtn=0x7f08000a;
+        public static final int doneb=0x7f08000c;
         public static final int listV_main=0x7f080000;
-        public static final int menu_settings=0x7f08000d;
-        public static final int send=0x7f08000c;
-        public static final int task=0x7f08000b;
+        public static final int menu_settings=0x7f08000f;
+        public static final int randomAddButton=0x7f080007;
+        public static final int send=0x7f08000e;
+        public static final int task=0x7f08000d;
         public static final int taskDescComp=0x7f080004;
         public static final int taskDescInput=0x7f080005;
         public static final int taskTitleCom=0x7f080002;
         public static final int taskTitleInput=0x7f080003;
-        public static final int timeBtn=0x7f080007;
+        public static final int timeBtn=0x7f080009;
         public static final int timeTxt=0x7f080008;
     }
     public static final class layout {
@@ -61,7 +63,9 @@ public final class R {
         public static final int temp=0x7f070004;
     }
     public static final class string {
+        public static final int addButtonText=0x7f050015;
         public static final int app_name=0x7f050000;
+        public static final int cancelButton=0x7f050014;
         public static final int done=0x7f050004;
         public static final int edit_desc=0x7f05000a;
         public static final int edit_title=0x7f050009;
@@ -71,6 +75,7 @@ public final class R {
         public static final int hello_world=0x7f050001;
         public static final int image_description=0x7f05000c;
         public static final int menu_settings=0x7f050002;
+        public static final int randomButton=0x7f050013;
         public static final int set_date=0x7f050008;
         public static final int set_time=0x7f05000b;
         public static final int time_text=0x7f050007;
