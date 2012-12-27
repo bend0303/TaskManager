@@ -40,45 +40,61 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/taskDescComp"
         android:ems="10"
-            android:hint="@string/edit_desc"
-        android:inputType="text" />
+        android:hint="@string/edit_desc"
+        android:inputType="textLongMessage" />
 
-    <Button 
-        android:id="@+id/dateBtn"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/addTaskButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/taskDescInput"
-        android:layout_below="@+id/taskDescInput"
-        android:text="@string/set_date"
-        android:onClick="chooseDate"
-        />
-    
-    <Button 
-        android:id="@+id/timeBtn"
-        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/addButtonText" />
+
+    <Button
+        android:id="@+id/randomAddButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/set_time"
-        android:layout_below="@+id/dateBtn"
-        android:layout_alignLeft="@+id/taskDescInput"
-        android:onClick="chooseTime"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/randomButton" />
 
     <TextView
         android:id="@+id/timeTxt"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/timeBtn"
+        android:layout_marginTop="46dp"
         android:padding="@dimen/timedate_text_padding"
         android:text="@string/time_text"
         android:textSize="@dimen/timedate_font_size" />
-    
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:contentDescription="@string/image_description"
+
+    <Button
+        android:id="@+id/timeBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateBtn"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:onClick="chooseTime"
+        android:text="@string/set_time" />
+
+    <Button
+        android:id="@+id/dateBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeBtn"
+        android:layout_toRightOf="@+id/taskTitleCom"
+        android:onClick="chooseDate"
+        android:text="@string/set_date" />
+
+    <Button
+        android:id="@+id/cancelAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/addbutton"
-        android:onClick="createTask" />
+        android:layout_toLeftOf="@+id/randomAddButton"
+        android:text="@string/cancelButton" />
+	
 </RelativeLayout>

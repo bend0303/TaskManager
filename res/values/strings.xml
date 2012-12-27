@@ -20,5 +20,8 @@
     <string name="formTaskDesc">Description:</string>
     <string name="title_activity_temp">MainActivity</string>
     <string name="title_activity_task_single_view">TaskSingleViewActivity</string>
+    <string name="randomButton">Random Task</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="addButtonText">Add Task</string>
 
 </resources>
