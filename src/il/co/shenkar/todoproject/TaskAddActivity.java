@@ -1,8 +1,19 @@
 package il.co.shenkar.todoproject;
 
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.Calendar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -28,7 +39,7 @@ import android.widget.TimePicker;
 public class TaskAddActivity extends Activity {
 	private Button timeBtn, dateBtn, addButton, randomButton, cancelButton;
 	private DateFormat formatDateTime = DateFormat.getDateTimeInstance();
-	private Calendar dateTime = Calendar.getInstance();
+	private Calendar dateTime = Calendar.getInstance();	
 	private Calendar tempDateTime = Calendar.getInstance();
 	private TextView timeLabel;
 	private EditText taskTitle, taskDesc;
@@ -43,23 +54,28 @@ public class TaskAddActivity extends Activity {
 		addButton = (Button) findViewById(R.id.addTaskButton);
 		randomButton = (Button) findViewById(R.id.randomAddButton);
 		cancelButton = (Button) findViewById(R.id.cancelAddButton);
+		
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+	
 		super.onCreate(savedInstanceState);
 		Log.i("TaskAddActivity", "Activity Created");
 		setContentView(R.layout.activity_task_add);
 		getAllbyId();
-
 		timeBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				tempDateTime.set(Calendar.HOUR_OF_DAY, dateTime.get(Calendar.HOUR_OF_DAY));
+				tempDateTime.set(Calendar.MINUTE, dateTime.get(Calendar.MINUTE));
 				TimePickerDialog timeDialog = new TimePickerDialog(
 						TaskAddActivity.this, t, dateTime
 								.get(Calendar.HOUR_OF_DAY), dateTime
 								.get(Calendar.MINUTE), true);
+				timeDialog.setOnCancelListener(timeOcl);
+				timeDialog.setOnDismissListener(timeOdl);
 				timeDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
 						new DialogInterface.OnClickListener() {
 
@@ -67,7 +83,7 @@ public class TaskAddActivity extends Activity {
 							public void onClick(DialogInterface timeDialog,
 									int which) {
 								if (which == DialogInterface.BUTTON_NEGATIVE) {
-									timeDialog.dismiss();
+									timeDialog.cancel();
 								}
 							}
 						});
@@ -85,8 +101,8 @@ public class TaskAddActivity extends Activity {
 						TaskAddActivity.this, d, dateTime.get(Calendar.YEAR),
 						dateTime.get(Calendar.MONTH), dateTime
 								.get(Calendar.DAY_OF_MONTH));
-				dateDialog.setOnCancelListener(ocl);
-				dateDialog.setOnDismissListener(odl);	
+				dateDialog.setOnCancelListener(dateOcl);
+				dateDialog.setOnDismissListener(dateOdl);	
 				dateDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
 						new DialogInterface.OnClickListener() {
 
@@ -101,26 +117,53 @@ public class TaskAddActivity extends Activity {
 				dateDialog.show();
 			}
 		});
+		randomButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					URL[] urls = {new URL(asyncTaskUrl)}; 
+					new GetFromWebTask().execute(urls);
+				} catch (Exception e) {
+					Log.e("Random onClick", e.getMessage());
+				}
+
+			}
+		});
 		addButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				createTask(v);	
 			}
 		});
 		updateLabel(dateTime);
 	}
-
-	DialogInterface.OnDismissListener odl = new DialogInterface.OnDismissListener() {
+	DialogInterface.OnDismissListener timeOdl = new DialogInterface.OnDismissListener() {
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			updateLabel(dateTime);
+		}
+	};
+	DialogInterface.OnDismissListener dateOdl = new DialogInterface.OnDismissListener() {
 		
 		@Override
 		public void onDismiss(DialogInterface dialog) {
 			updateLabel(dateTime);
 		}
 	};
-	DialogInterface.OnCancelListener ocl = new DialogInterface.OnCancelListener() {
-
+	
+	DialogInterface.OnCancelListener timeOcl = new DialogInterface.OnCancelListener() {
+		
+		@Override
+		public void onCancel(DialogInterface dialog) {
+			// TODO Auto-generated method stub
+			dateTime.set(Calendar.HOUR_OF_DAY, tempDateTime.get(Calendar.HOUR_OF_DAY));
+			dateTime.set(Calendar.MINUTE, tempDateTime.get(Calendar.MINUTE));
+			updateLabel(dateTime);
+		}
+	};
+	DialogInterface.OnCancelListener dateOcl = new DialogInterface.OnCancelListener() {
 		@Override
 		public void onCancel(DialogInterface dialog) {
 			dateTime.set(Calendar.YEAR, tempDateTime.get(Calendar.YEAR));
@@ -183,7 +226,7 @@ public class TaskAddActivity extends Activity {
 				getApplicationContext(), 0, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService("alarm");
 		alarmManager.set(AlarmManager.RTC_WAKEUP,
-				System.currentTimeMillis() + 12000, pendingIntent);
+				dateTime.getTimeInMillis(), pendingIntent);
 	}
 
 	@Override
@@ -218,22 +261,40 @@ public class TaskAddActivity extends Activity {
 
 	private class GetFromWebTask extends AsyncTask<URL, Integer, String> {
 
-		protected String doInBackground(URL urls) {
-			// return getFromWeb(urls[0]); // BG thread
-			return null;
+		@Override
+		protected String doInBackground(URL... url) {
+			String response = "";
+			URL remoteUrl = url[0];
+			BufferedReader reader;
+			try {
+				HttpURLConnection connection = (HttpURLConnection) remoteUrl
+						.openConnection();
+				connection.connect();
+				reader = new BufferedReader(new InputStreamReader(
+						connection.getInputStream()));
+				StringBuilder responseBuilder = new StringBuilder();
+				for (String line = reader.readLine(); line != null; line = reader
+						.readLine()) {
+					responseBuilder.append(line);
+				}
+				response = responseBuilder.toString();
+				
+			} catch (Exception e) {
+				Log.e("doInBackground", e.getMessage());
+			}
+			return response;
 		}
-
 		@Override
 		protected void onPostExecute(String result) {
-			// resultTextView.setText(result); // UI thread
+			super.onPostExecute(result);
+			try {
+				JSONObject jsonResponse = new JSONObject(result);
+				taskTitle.setText(jsonResponse.getString("topic"));
+				taskDesc.setText(jsonResponse.getString("description"));
+			} catch (JSONException e) {
+				Log.e("onPostExecute", "Could not create JSON object");
+			}
 		}
-
-		@Override
-		protected String doInBackground(URL... params) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 	}
 
 }
