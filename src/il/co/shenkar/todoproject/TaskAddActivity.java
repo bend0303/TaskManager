@@ -205,7 +205,7 @@ public class TaskAddActivity extends Activity {
 		return true;
 	}
 
-	public void createTask(View v) {
+	private void createTask(View v) {
 		Intent intent = new Intent(this, TaskViewImageActivity.class);
 		TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(),
 				taskDesc.getText().toString(), formatDateTime.toString(),
