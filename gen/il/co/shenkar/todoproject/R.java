@@ -8,14 +8,6 @@
 package il.co.shenkar.todoproject;
 
 public final class R {
-    public static final class TaskViewIds {
-        public static final int editButtonView=0x7f090005;
-        public static final int taskDescCompView=0x7f090002;
-        public static final int taskDescInputView=0x7f090003;
-        public static final int taskTitleComView=0x7f090000;
-        public static final int taskTitleInputView=0x7f090001;
-        public static final int timeTxtView=0x7f090004;
-    }
     public static final class attr {
     }
     public static final class dimen {
@@ -37,9 +29,8 @@ public final class R {
         public static final int dateBtn=0x7f08000a;
         public static final int doneb=0x7f08000c;
         public static final int listV_main=0x7f080000;
-        public static final int menu_settings=0x7f08000f;
+        public static final int menu_settings=0x7f08000e;
         public static final int randomAddButton=0x7f080007;
-        public static final int send=0x7f08000e;
         public static final int task=0x7f08000d;
         public static final int taskDescComp=0x7f080004;
         public static final int taskDescInput=0x7f080005;
@@ -51,16 +42,16 @@ public final class R {
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_task_add=0x7f030001;
-        public static final int activity_task_single_view=0x7f030002;
+        public static final int activity_task_edit=0x7f030002;
         public static final int task_view=0x7f030003;
-        public static final int temp=0x7f030004;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
         public static final int activity_task_add=0x7f070001;
         public static final int activity_task_single_view=0x7f070002;
         public static final int activity_task_view_image=0x7f070003;
-        public static final int temp=0x7f070004;
+        public static final int taskedit=0x7f070004;
+        public static final int temp=0x7f070005;
     }
     public static final class string {
         public static final int addButtonText=0x7f050015;
@@ -82,6 +73,7 @@ public final class R {
         public static final int title_activity_main=0x7f050003;
         public static final int title_activity_task_add=0x7f05000d;
         public static final int title_activity_task_date_picker=0x7f050006;
+        public static final int title_activity_task_edit=0x7f050016;
         public static final int title_activity_task_single_view=0x7f050012;
         public static final int title_activity_task_view_image=0x7f050005;
         public static final int title_activity_temp=0x7f050011;

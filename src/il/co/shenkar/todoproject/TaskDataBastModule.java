@@ -149,6 +149,13 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 		return tasks.size();
 	}
 
+	public int getIdByTag(int pos) {
+		if (tasks.get(pos) != null) {
+			return tasks.get(pos).getTaskId();
+		}
+		return -1;
+		
+	}
 	public void remove(int pos) {
 		removeTask(getTask(pos));
 		tasks.remove(pos);

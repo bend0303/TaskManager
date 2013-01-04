@@ -12,8 +12,7 @@ public class TaskDetails implements Serializable{
 	private int taskId;
 	private String taskActionTime;
 	private double taskCreationTimeStamp;
-	
-	
+
 	public String getTaskActionTime() {
 		return taskActionTime;
 	}

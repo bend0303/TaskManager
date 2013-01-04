@@ -208,7 +208,7 @@ public class TaskAddActivity extends Activity {
 	private void createTask(View v) {
 		Intent intent = new Intent(this, TaskViewImageActivity.class);
 		TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(),
-				taskDesc.getText().toString(), formatDateTime.toString(),
+				taskDesc.getText().toString(), dateTime.toString(),
 				System.currentTimeMillis());
 		TaskDataBastModule tasksModel = TaskDataBastModule
 				.getInstance(getApplicationContext());
