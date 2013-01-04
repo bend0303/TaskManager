@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false" >
+
+    <TextView
+        android:id="@+id/taskTitleCom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/formTaskTitle" />
+
+    <EditText
+        android:id="@+id/taskTitleInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/taskTitleCom"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/edit_title" />
+
+    <TextView
+        android:id="@+id/taskDescComp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/taskTitleCom"
+        android:layout_below="@+id/taskTitleInput"
+        android:layout_marginTop="26dp"
+        android:text="@string/formTaskDesc" />
+
+    <EditText
+        android:id="@+id/taskDescInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/taskDescComp"
+        android:ems="10"
+        android:hint="@string/edit_desc"
+        android:inputType="textLongMessage" />
+
+    <Button
+        android:id="@+id/addTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/addButtonText" />
+
+    <TextView
+        android:id="@+id/timeTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/timeBtn"
+        android:layout_marginTop="46dp"
+        android:padding="@dimen/timedate_text_padding"
+        android:text="@string/time_text"
+        android:textSize="@dimen/timedate_font_size" />
+
+    <Button
+        android:id="@+id/timeBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateBtn"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:onClick="chooseTime"
+        android:text="@string/set_time" />
+
+    <Button
+        android:id="@+id/dateBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeBtn"
+        android:layout_toRightOf="@+id/taskTitleCom"
+        android:onClick="chooseDate"
+        android:text="@string/set_date" />
+
+    <Button
+        android:id="@+id/cancelAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/cancelButton" />
+	
+</RelativeLayout>

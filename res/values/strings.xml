@@ -23,5 +23,6 @@
     <string name="randomButton">Random Task</string>
     <string name="cancelButton">Cancel</string>
     <string name="addButtonText">Add Task</string>
+    <string name="title_activity_task_edit">Task Edit</string>
 
 </resources>
