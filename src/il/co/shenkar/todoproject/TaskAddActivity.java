@@ -1,6 +1,5 @@
 package il.co.shenkar.todoproject;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,9 +36,12 @@ import android.widget.TimePicker;
 
 //test number 2
 public class TaskAddActivity extends Activity {
+	public static int ADD_MODE = 5001;
+	public static int EDIT_MODE = 5002;
+	public static int VIEW_MODE = 5003;
 	private Button timeBtn, dateBtn, addButton, randomButton, cancelButton;
 	private DateFormat formatDateTime = DateFormat.getDateTimeInstance();
-	private Calendar dateTime = Calendar.getInstance();	
+	private Calendar dateTime = Calendar.getInstance();
 	private Calendar tempDateTime = Calendar.getInstance();
 	private TextView timeLabel;
 	private EditText taskTitle, taskDesc;
@@ -54,21 +56,138 @@ public class TaskAddActivity extends Activity {
 		addButton = (Button) findViewById(R.id.addTaskButton);
 		randomButton = (Button) findViewById(R.id.randomAddButton);
 		cancelButton = (Button) findViewById(R.id.cancelAddButton);
-		
+
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	
+
 		super.onCreate(savedInstanceState);
 		Log.i("TaskAddActivity", "Activity Created");
 		setContentView(R.layout.activity_task_add);
+
 		getAllbyId();
+
+		Bundle extras = getIntent().getExtras();
+		int Activity_Mode = (Integer) extras.get("MODE");
+		TaskDetails task = (TaskDetails) extras.get("TASK");
+		switch (Activity_Mode) {
+			case 5001: { // add mode
+				AddModeSettings();
+				break;
+			}
+			case 5002: { // edit mode
+				EditModeSettings(task);
+				break;
+			}
+	
+			case 5003: { // view mode
+				ViewModeSettings(task);
+				break;
+			}
+
+		}
+
+		randomButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					URL[] urls = { new URL(asyncTaskUrl) };
+					new GetFromWebTask().execute(urls);
+				} catch (Exception e) {
+					Log.e("Random onClick", e.getMessage());
+				}
+
+			}
+		});
+		addButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				createTask(v);
+			}
+		});
+		updateLabel(dateTime);
+	}
+
+	private void ViewModeSettings(TaskDetails task) {
+		timeBtn.setVisibility(Button.GONE);
+		dateBtn.setVisibility(Button.INVISIBLE);
+		pullTaskData(task);
+	}
+
+	private void pullTaskData(TaskDetails task) {
+		
+	}
+
+	private void EditModeSettings(TaskDetails task) {
+		setDateTimeButtons();
+		pullTaskData(task);
+	}
+
+	private void AddModeSettings() {
+		setDateTimeButtons();
+	}
+
+	DialogInterface.OnDismissListener timeOdl = new DialogInterface.OnDismissListener() {
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			updateLabel(dateTime);
+		}
+	};
+	DialogInterface.OnDismissListener dateOdl = new DialogInterface.OnDismissListener() {
+
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			updateLabel(dateTime);
+		}
+	};
+
+	DialogInterface.OnCancelListener timeOcl = new DialogInterface.OnCancelListener() {
+
+		@Override
+		public void onCancel(DialogInterface dialog) {
+			// TODO Auto-generated method stub
+			dateTime.set(Calendar.HOUR_OF_DAY,
+					tempDateTime.get(Calendar.HOUR_OF_DAY));
+			dateTime.set(Calendar.MINUTE, tempDateTime.get(Calendar.MINUTE));
+			updateLabel(dateTime);
+		}
+	};
+	DialogInterface.OnCancelListener dateOcl = new DialogInterface.OnCancelListener() {
+		@Override
+		public void onCancel(DialogInterface dialog) {
+			dateTime.set(Calendar.YEAR, tempDateTime.get(Calendar.YEAR));
+			dateTime.set(Calendar.MONTH, tempDateTime.get(Calendar.MONTH));
+			dateTime.set(Calendar.DAY_OF_MONTH,
+					tempDateTime.get(Calendar.DAY_OF_MONTH));
+			updateLabel(dateTime);
+		}
+	};
+	// Date on set listener
+	private DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			dateTime.set(Calendar.YEAR, year);
+			dateTime.set(Calendar.MONTH, monthOfYear);
+			dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		}
+	};
+
+	private void updateLabel(Calendar inputDateTime) {
+		timeLabel.setText(formatDateTime.format(dateTime.getTime()));
+	}
+
+	private void setDateTimeButtons() {
 		timeBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				tempDateTime.set(Calendar.HOUR_OF_DAY, dateTime.get(Calendar.HOUR_OF_DAY));
+				tempDateTime.set(Calendar.HOUR_OF_DAY,
+						dateTime.get(Calendar.HOUR_OF_DAY));
 				tempDateTime.set(Calendar.MINUTE, dateTime.get(Calendar.MINUTE));
 				TimePickerDialog timeDialog = new TimePickerDialog(
 						TaskAddActivity.this, t, dateTime
@@ -96,13 +215,14 @@ public class TaskAddActivity extends Activity {
 			public void onClick(View v) {
 				tempDateTime.set(Calendar.YEAR, dateTime.get(Calendar.YEAR));
 				tempDateTime.set(Calendar.MONTH, dateTime.get(Calendar.MONTH));
-				tempDateTime.set(Calendar.DAY_OF_MONTH, dateTime.get(Calendar.DAY_OF_MONTH));
+				tempDateTime.set(Calendar.DAY_OF_MONTH,
+						dateTime.get(Calendar.DAY_OF_MONTH));
 				DatePickerDialog dateDialog = new DatePickerDialog(
 						TaskAddActivity.this, d, dateTime.get(Calendar.YEAR),
 						dateTime.get(Calendar.MONTH), dateTime
 								.get(Calendar.DAY_OF_MONTH));
 				dateDialog.setOnCancelListener(dateOcl);
-				dateDialog.setOnDismissListener(dateOdl);	
+				dateDialog.setOnDismissListener(dateOdl);
 				dateDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
 						new DialogInterface.OnClickListener() {
 
@@ -117,73 +237,8 @@ public class TaskAddActivity extends Activity {
 				dateDialog.show();
 			}
 		});
-		randomButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				try {
-					URL[] urls = {new URL(asyncTaskUrl)}; 
-					new GetFromWebTask().execute(urls);
-				} catch (Exception e) {
-					Log.e("Random onClick", e.getMessage());
-				}
-
-			}
-		});
-		addButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				createTask(v);	
-			}
-		});
-		updateLabel(dateTime);
 	}
-	DialogInterface.OnDismissListener timeOdl = new DialogInterface.OnDismissListener() {
-		@Override
-		public void onDismiss(DialogInterface dialog) {
-			updateLabel(dateTime);
-		}
-	};
-	DialogInterface.OnDismissListener dateOdl = new DialogInterface.OnDismissListener() {
-		
-		@Override
-		public void onDismiss(DialogInterface dialog) {
-			updateLabel(dateTime);
-		}
-	};
-	
-	DialogInterface.OnCancelListener timeOcl = new DialogInterface.OnCancelListener() {
-		
-		@Override
-		public void onCancel(DialogInterface dialog) {
-			// TODO Auto-generated method stub
-			dateTime.set(Calendar.HOUR_OF_DAY, tempDateTime.get(Calendar.HOUR_OF_DAY));
-			dateTime.set(Calendar.MINUTE, tempDateTime.get(Calendar.MINUTE));
-			updateLabel(dateTime);
-		}
-	};
-	DialogInterface.OnCancelListener dateOcl = new DialogInterface.OnCancelListener() {
-		@Override
-		public void onCancel(DialogInterface dialog) {
-			dateTime.set(Calendar.YEAR, tempDateTime.get(Calendar.YEAR));
-			dateTime.set(Calendar.MONTH, tempDateTime.get(Calendar.MONTH));
-			dateTime.set(Calendar.DAY_OF_MONTH, tempDateTime.get(Calendar.DAY_OF_MONTH));
-			updateLabel(dateTime);
-		}
-	};
-	// Date on set listener
-	private DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
 
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
-			dateTime.set(Calendar.YEAR, year);
-			dateTime.set(Calendar.MONTH, monthOfYear);
-			dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-		}
-	};
-	
 	// Time on set listener
 	private TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
 
@@ -194,10 +249,6 @@ public class TaskAddActivity extends Activity {
 			updateLabel(dateTime);
 		}
 	};
-
-	private void updateLabel(Calendar inputDateTime) {
-		timeLabel.setText(formatDateTime.format(dateTime.getTime()));
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,8 +276,8 @@ public class TaskAddActivity extends Activity {
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
 				getApplicationContext(), 0, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService("alarm");
-		alarmManager.set(AlarmManager.RTC_WAKEUP,
-				dateTime.getTimeInMillis(), pendingIntent);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, dateTime.getTimeInMillis(),
+				pendingIntent);
 	}
 
 	@Override
@@ -278,12 +329,13 @@ public class TaskAddActivity extends Activity {
 					responseBuilder.append(line);
 				}
 				response = responseBuilder.toString();
-				
+
 			} catch (Exception e) {
 				Log.e("doInBackground", e.getMessage());
 			}
 			return response;
 		}
+
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);

@@ -26,7 +26,6 @@ public class TaskViewImageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.i("TaskViewImageActivity", "Activity Created");
 		setContentView(R.layout.activity_main);
-		setEx6Alarm();
 		dataModel = TaskDataBastModule.getInstance(getApplicationContext());
 
 		lv1 = (ListView) findViewById(R.id.listV_main);
@@ -37,6 +36,7 @@ public class TaskViewImageActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(),
 						TaskAddActivity.class);
+				intent.putExtra("MODE", TaskAddActivity.ADD_MODE);
 				startActivity(intent);
 			}
 		});
@@ -70,30 +70,23 @@ public class TaskViewImageActivity extends Activity {
 		super.onResume();
 	}
 
-	private void setEx6Alarm() {
-		Intent intent = new Intent(getApplicationContext(),
-				Ex6RandomTaskService.class);
-		PendingIntent pendingIntent = PendingIntent.getService(
-				getApplicationContext(), 0, intent, 0);
-		AlarmManager alarmManager = (AlarmManager) getSystemService("alarm");
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-				System.currentTimeMillis() + 5000, 60000, pendingIntent);
-	}
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		float downXValue = 0;
 		float downYValue = 0;
+		Log.i("onTouchEvent", "Enter function");
 		switch (event.getAction()) {
 
 		case MotionEvent.ACTION_DOWN: {
 			downXValue = event.getX();
 			downYValue = event.getY();
+			Log.i("onTouchEvent", "ACTION_DOWN");
 			break;
 		}
 		case MotionEvent.ACTION_UP: {
             float currentX = event.getX();   
             float currentY= event.getY();
+			Log.i("onTouchEvent", "ACTION_UP");
 
 			double sizeInX = Math.abs(downXValue - currentX);
 			double sizeInY = Math.abs(downYValue - currentY);

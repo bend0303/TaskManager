@@ -9,7 +9,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="15" />
 
     <application
         android:allowBackup="true"
@@ -39,11 +39,11 @@
                 <action android:name="android.intent.action.TASKS" />
             </intent-filter>
         </receiver>
-        <activity android:name=".TaskEditActivity"
-            android:label="@string/title_activity_task_edit"
-            android:parentActivityName="il.co.shenkar.todoproject.TaskViewImageActivity">
+
+        <activity
+            android:name="il.co.shenkar.todoproject.TaskEditActivity"
+            android:label="@string/title_activity_task_edit" >
         </activity>
     </application>
 
 </manifest>
-
