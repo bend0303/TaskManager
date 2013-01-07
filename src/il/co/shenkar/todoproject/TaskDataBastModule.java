@@ -77,6 +77,19 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 		tasks.add(task);
 	}
 
+	void updateTask(TaskDetails task) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		
+		values.put(KEY_TITLE, task.getTaskTitle());
+		values.put(KEY_DESC, task.getTaskDesc());
+		values.put(KEY_DET_TIME, task.getTaskActionTime());
+	    db.update(TABLE_TASKS, values, KEY_ID + "=" + task.getTaskId(), null);
+	    db.close();
+	    tasks.remove(getTaskById(task.getTaskId()));
+		tasks.add(task);
+	}
+	
 	public TaskDetails getTask(int pos) {
 		return tasks.get(pos);
 	}
@@ -103,7 +116,7 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 		TaskDetails task = new TaskDetails(
 				Integer.parseInt(cursor.getString(0)), cursor.getString(1),
 				cursor.getString(2), Double.parseDouble(cursor.getString(3)),
-				cursor.getString(4));
+				Long.parseLong(cursor.getString(4)));
 		db.close();
 		return task;
 	}
@@ -120,7 +133,7 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 					TaskDetails task = new TaskDetails(Integer.parseInt(cursor
 							.getString(0)), cursor.getString(1),
 							cursor.getString(2), Double.parseDouble(cursor
-									.getString(3)), cursor.getString(4));
+									.getString(3)),Long.parseLong(cursor.getString(4)));
 					tasks.add(task);
 				} while (cursor.moveToNext());
 			}

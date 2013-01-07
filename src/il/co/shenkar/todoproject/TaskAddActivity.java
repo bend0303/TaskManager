@@ -1,5 +1,7 @@
 package il.co.shenkar.todoproject;
 
+import il.co.shenkar.todoproject.R.layout;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -31,14 +34,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 //test number 2
 public class TaskAddActivity extends Activity {
-	public static int ADD_MODE = 5001;
-	public static int EDIT_MODE = 5002;
-	public static int VIEW_MODE = 5003;
+	public static final int ADD_MODE = 5001;
+	public static final int EDIT_MODE = 5002;
+	public static final int VIEW_MODE = 5003;
 	private Button timeBtn, dateBtn, addButton, randomButton, cancelButton;
 	private DateFormat formatDateTime = DateFormat.getDateTimeInstance();
 	private Calendar dateTime = Calendar.getInstance();
@@ -67,27 +73,82 @@ public class TaskAddActivity extends Activity {
 		setContentView(R.layout.activity_task_add);
 
 		getAllbyId();
-
 		Bundle extras = getIntent().getExtras();
 		int Activity_Mode = (Integer) extras.get("MODE");
-		TaskDetails task = (TaskDetails) extras.get("TASK");
+		
 		switch (Activity_Mode) {
-			case 5001: { // add mode
+			case ADD_MODE: {
 				AddModeSettings();
 				break;
 			}
-			case 5002: { // edit mode
+			case EDIT_MODE: { 
+				TaskDetails task = (TaskDetails) extras.get("TASK");
 				EditModeSettings(task);
 				break;
 			}
 	
-			case 5003: { // view mode
+			case VIEW_MODE: {
+				TaskDetails task = (TaskDetails) extras.get("TASK");
 				ViewModeSettings(task);
 				break;
 			}
 
 		}
 
+	}
+
+	private void ViewModeSettings(TaskDetails task) {
+		//Disable all inputs on screen
+		timeBtn.setVisibility(Button.INVISIBLE);
+		dateBtn.setVisibility(Button.INVISIBLE);
+		randomButton.setVisibility(Button.INVISIBLE);
+		addButton.setVisibility(Button.INVISIBLE);
+		taskTitle.setInputType(0);
+		taskDesc.setInputType(0);
+		cancelButton.setText("Go Back!");
+		cancelButton.setWidth(LayoutParams.FILL_PARENT);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TaskAddActivity.this.finish();
+			}
+		});
+		pullTaskData(task);
+	}
+
+	private void pullTaskData(TaskDetails task) {
+		taskTitle.setText(task.getTaskTitle());
+		taskDesc.setText(task.getTaskDesc());
+		dateTime.setTimeInMillis(task.getTaskActionTime());
+		updateLabel(dateTime);	
+	}
+
+	private void EditModeSettings(final TaskDetails task) {
+		pullTaskData(task);
+		setDateTimeButtons();
+		randomButton.setVisibility(Button.INVISIBLE);
+
+		addButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				updateTask(v, task.getTaskId());
+			}
+
+		});
+	
+	
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TaskAddActivity.this.finish();
+			}
+		});
+	}
+
+	private void AddModeSettings() {
+		setDateTimeButtons();
+		updateLabel(dateTime);
 		randomButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -108,26 +169,12 @@ public class TaskAddActivity extends Activity {
 				createTask(v);
 			}
 		});
-		updateLabel(dateTime);
-	}
-
-	private void ViewModeSettings(TaskDetails task) {
-		timeBtn.setVisibility(Button.GONE);
-		dateBtn.setVisibility(Button.INVISIBLE);
-		pullTaskData(task);
-	}
-
-	private void pullTaskData(TaskDetails task) {
-		
-	}
-
-	private void EditModeSettings(TaskDetails task) {
-		setDateTimeButtons();
-		pullTaskData(task);
-	}
-
-	private void AddModeSettings() {
-		setDateTimeButtons();
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TaskAddActivity.this.finish();
+			}
+		});
 	}
 
 	DialogInterface.OnDismissListener timeOdl = new DialogInterface.OnDismissListener() {
@@ -148,7 +195,6 @@ public class TaskAddActivity extends Activity {
 
 		@Override
 		public void onCancel(DialogInterface dialog) {
-			// TODO Auto-generated method stub
 			dateTime.set(Calendar.HOUR_OF_DAY,
 					tempDateTime.get(Calendar.HOUR_OF_DAY));
 			dateTime.set(Calendar.MINUTE, tempDateTime.get(Calendar.MINUTE));
@@ -256,10 +302,24 @@ public class TaskAddActivity extends Activity {
 		return true;
 	}
 
+	
+	private void updateTask(View v, int pId) {
+		Intent intent = new Intent(this, TaskViewImageActivity.class);
+		TaskDetails updatedTask = new TaskDetails(taskTitle.getText().toString(),
+				taskDesc.getText().toString(), dateTime.getTimeInMillis(),
+				System.currentTimeMillis());
+		updatedTask.setTaskId(pId);
+		TaskDataBastModule tasksModel = TaskDataBastModule
+				.getInstance(getApplicationContext());
+		tasksModel.updateTask(updatedTask);
+		setActivityAlarm(updatedTask.getTaskId());
+		startActivity(intent);
+	}
+	
 	private void createTask(View v) {
 		Intent intent = new Intent(this, TaskViewImageActivity.class);
 		TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(),
-				taskDesc.getText().toString(), dateTime.toString(),
+				taskDesc.getText().toString(), dateTime.getTimeInMillis(),
 				System.currentTimeMillis());
 		TaskDataBastModule tasksModel = TaskDataBastModule
 				.getInstance(getApplicationContext());
@@ -274,7 +334,7 @@ public class TaskAddActivity extends Activity {
 		Intent intent = new Intent("android.intent.action.TASKS");
 		intent.putExtra("TASK_ID", tId);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(
-				getApplicationContext(), 0, intent, 0);
+				getApplicationContext(), tId, intent, 0);
 		AlarmManager alarmManager = (AlarmManager) getSystemService("alarm");
 		alarmManager.set(AlarmManager.RTC_WAKEUP, dateTime.getTimeInMillis(),
 				pendingIntent);

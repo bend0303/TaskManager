@@ -10,19 +10,19 @@ public class TaskDetails implements Serializable{
 	private String taskTitle;
 	private String taskDesc;
 	private int taskId;
-	private String taskActionTime;
+	private long taskActionTime;
 	private double taskCreationTimeStamp;
 
-	public String getTaskActionTime() {
+	public long getTaskActionTime() {
 		return taskActionTime;
 	}
 
-	public void setTaskActionTime(String taskActionTime) {
+	public void setTaskActionTime(long taskActionTime) {
 		this.taskActionTime = taskActionTime;
 	}
 
 	public TaskDetails(String taskTitle, String taskDesc,
-			String taskActionTime, double taskCreationTimeStamp) {
+			long taskActionTime, double taskCreationTimeStamp) {
 		super();
 		this.taskTitle = taskTitle;
 		this.taskDesc = taskDesc;
@@ -31,7 +31,7 @@ public class TaskDetails implements Serializable{
 	}
 	
 	public TaskDetails(int taskId, String taskTitle, String taskDesc,
-			 double taskCreationTimeStamp, String taskActionTime) {
+			 double taskCreationTimeStamp, long taskActionTime) {
 		super();
 		this.taskTitle = taskTitle;
 		this.taskDesc = taskDesc;

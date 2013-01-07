@@ -96,6 +96,7 @@ public class TaskViewImageActivity extends Activity {
 				// you better swipe vertically
 				Intent intent = new Intent(getApplicationContext(),
 						TaskAddActivity.class);
+				intent.putExtra("MODE", TaskAddActivity.ADD_MODE);
 				startActivity(intent);
 			}
 
