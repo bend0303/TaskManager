@@ -69,16 +69,6 @@
         android:text="@string/time_text"
         android:textAllCaps="false"
         android:textSize="26sp" />
-
-    <Button
-        android:id="@+id/dateBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/timeTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:onClick="chooseDate"
-        android:text="@string/set_date" />
     <LinearLayout
         android:id="@+id/LinearLayout02"
         android:layout_width="wrap_content"
@@ -116,5 +106,23 @@
         android:text="@string/formTaskDesc"
         android:textSize="22sp"
         android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/dateBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/timeBtn"
+        android:onClick="chooseDate"
+        android:text="@string/set_date" />
+
+    <Button
+        android:id="@+id/setlocBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateBtn"
+        android:onClick="chooseDate"
+        android:text="@string/set_date" />
 
 </RelativeLayout>

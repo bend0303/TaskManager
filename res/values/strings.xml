@@ -30,5 +30,8 @@
     <string name="edittext">Edit</string>
     <string name="donetext">Done</string>
     <string name="deletetext">Delete</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_task_geo_set">TaskGeoSetActivity</string>
+    <string name="chooseloc">Choose a location</string>
 
 </resources>

@@ -1,17 +1,10 @@
 package il.co.shenkar.todoproject;
 
-import il.co.shenkar.todoproject.R.layout;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -34,18 +27,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 //test number 2
 public class TaskAddActivity extends Activity {
+	private static final int LOC_ACTIVITY_CODE = 6001; 
 	public static final int ADD_MODE = 5001;
 	public static final int EDIT_MODE = 5002;
 	public static final int VIEW_MODE = 5003;
-	private Button timeBtn, dateBtn, addButton, randomButton, cancelButton;
+	private Button timeBtn, dateBtn, addButton, randomButton, cancelButton, locBtn;
 	private DateFormat formatDateTime = DateFormat.getDateTimeInstance();
 	private Calendar dateTime = Calendar.getInstance();
 	private Calendar tempDateTime = Calendar.getInstance();
@@ -62,6 +54,7 @@ public class TaskAddActivity extends Activity {
 		addButton = (Button) findViewById(R.id.addTaskButton);
 		randomButton = (Button) findViewById(R.id.randomAddButton);
 		cancelButton = (Button) findViewById(R.id.cancelAddButton);
+		locBtn = (Button) findViewById(R.id.setlocBtn);
 
 	}
 
@@ -149,6 +142,15 @@ public class TaskAddActivity extends Activity {
 	private void AddModeSettings() {
 		setDateTimeButtons();
 		updateLabel(dateTime);
+		locBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent I = new Intent(getApplicationContext(), TaskGeoSetActivity.class);
+				startActivityForResult(I, LOC_ACTIVITY_CODE);
+				
+			}
+		});
 		randomButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -363,7 +365,19 @@ public class TaskAddActivity extends Activity {
 		super.onStop();
 		finish();
 	}
-
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		Log.i("TaskAddActivity", "Activity onSaveInstanceState");
+	
+	}
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+		Log.i("TaskAddActivity", "Activity onRestoreInstanceState");
+	}
 	@Override
 	protected void onResume() {
 		Log.i("TaskAddActivity", "Activity Resumed");

@@ -24,7 +24,38 @@ public class TaskListBaseAdapter extends BaseAdapter {
 	private LayoutInflater l_Inflater;
 	private Context context;
 	
-	
+	private final OnClickListener doneButtonOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+		//	int position = (Integer) v.getTag();
+			 Toast toast=Toast.makeText(context, "Done Task", Toast.LENGTH_LONG);//This is where the error shows  
+	         toast.show();  
+		}
+	};
+	private final OnClickListener deleteButtonOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			//int position = (Integer) v.getTag();
+//			TaskDataBastModule.getInstance(context).remove(position);
+//			notifyDataSetChanged();
+		}
+	};
+	private final OnClickListener editButtonOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			int position = (Integer) v.getTag();
+			Intent intent = new Intent(context, TaskAddActivity.class);
+			intent.putExtra("MODE", TaskAddActivity.EDIT_MODE);
+			intent.putExtra("TASK", tasksDataModule.getTask(position));
+			context.startActivity(intent);
+		}
+	};
 	public TaskListBaseAdapter(Context context, ArrayList<TaskDetails> results) {
 		tasksDataModule = TaskDataBastModule.getInstance(context);
 		l_Inflater = LayoutInflater.from(context);
@@ -49,6 +80,12 @@ public class TaskListBaseAdapter extends BaseAdapter {
 			convertView = l_Inflater.inflate(R.layout.task_view, null);
 			holder = new ViewHolder();
 			holder.txt_taskName = (TextView) convertView.findViewById(R.id.task);
+			holder.delButton = (TextView) convertView.findViewById(R.id.delButton);
+			holder.doneButton = (TextView) convertView.findViewById(R.id.doneButton);
+			holder.editButton = (TextView) convertView.findViewById(R.id.editButton);
+			holder.delButton.setOnClickListener(deleteButtonOnClick);
+			holder.editButton.setOnClickListener(editButtonOnClick);
+			holder.doneButton.setOnClickListener(doneButtonOnClick);
 			holder.taskMenu = (RelativeLayout) convertView.findViewById(R.id.taskMenu);
 			convertView.setClickable(true);
 			convertView.setTag(holder);
@@ -82,11 +119,16 @@ public class TaskListBaseAdapter extends BaseAdapter {
 		}
 		});	
 		holder.taskMenu.setTag(position);
+		holder.delButton.setTag(position);
+		holder.doneButton.setTag(position);
+		holder.editButton.setTag(position);
 		return convertView;
 	}
 
 	static class ViewHolder {
-		
+		TextView editButton;
+		TextView doneButton;
+		TextView delButton;
 		TextView txt_taskName;
 		RelativeLayout taskMenu;
 	}
