@@ -1,6 +1,6 @@
 package il.co.shenkar.todoproject;
 
-
+import il.co.shenkar.todoproject.R;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,19 +21,12 @@ public class ToDoBroadcastReciever extends BroadcastReceiver {
 		TaskDetails taskToView = TaskDataBastModule.getInstance(context).getTaskById(taskId);
 		PendingIntent pIntent = PendingIntent.getActivity(context, 0, nIntent, 0);
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-	
+		Notification noti = new NotificationCompat.Builder(context).setContentTitle(taskToView.getTaskTitle())
+				.setSmallIcon(R.drawable.taskimage).setAutoCancel(true).addAction(R.drawable.doneb, "View All Tasks", pIntent).build();
+		// Hide the notification after its selected
+		noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
-		Notification noti = new NotificationCompat.Builder(context)
-         .setContentTitle(taskToView.getTaskTitle())
-         .setContentText(taskToView.getTaskDesc())
-         .setSmallIcon(R.drawable.taskimage)
-         .setAutoCancel(true)
-         .addAction(R.drawable.donebutton, "View All Tasks", pIntent)
-         .build();
-	    // Hide the notification after its selected
-	    noti.flags |= Notification.FLAG_AUTO_CANCEL;
+		notificationManager.notify(12, noti);
 
-	    notificationManager.notify(12, noti);
- 
 	}
 }

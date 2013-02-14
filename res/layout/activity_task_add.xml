@@ -2,19 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
     android:clickable="false" >
 
-    <TextView
-        android:id="@+id/taskTitleCom"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/formTaskTitle"
-        android:textSize="22sp"
-        android:textStyle="italic" />
+        android:background="@drawable/roundshape" >
+
+        <EditText
+            android:id="@+id/taskTitleInput"
+            android:layout_width="fill_parent"
+            android:layout_height="64dp"
+            android:ems="10"
+            android:hint="@string/edit_title"
+            android:inputType="textShortMessage|textLongMessage" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/addTaskButton"
@@ -41,88 +47,63 @@
         android:text="@string/cancelButton" />
 
     <LinearLayout
-        android:id="@+id/LinearLayout01"
-        android:layout_width="wrap_content"
+        android:id="@+id/reminder_layout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/taskTitleCom"
-        android:layout_toRightOf="@+id/addTaskButton"
-        android:background="@drawable/roundshape" >
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:visibility="invisible" >
 
-        <EditText
-            android:id="@+id/taskTitleInput"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/edit_title"
-            android:inputType="textShortMessage|textLongMessage" />
+        <Button
+            android:id="@+id/dateBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="chooseDate"
+            android:text="@string/set_date" />
+
+        <Button
+            android:id="@+id/timeBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:onClick="chooseTime"
+            android:text="@string/set_time" />
+
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/timedate_text_padding"
+            android:text="@string/time_text"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/setlocBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:onClick="chooseDate"
+            android:text="@string/set_loc" />
+
+        <TextView
+            android:id="@+id/locText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/timedate_text_padding"
+            android:text="@string/loc_text"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/timeTxt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/addTaskButton"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="21dp"
-        android:padding="@dimen/timedate_text_padding"
-        android:text="@string/time_text"
-        android:textAllCaps="false"
-        android:textSize="26sp" />
-    <LinearLayout
-        android:id="@+id/LinearLayout02"
+    <Switch
+        android:id="@+id/reminderSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/taskDescComp"
-        android:layout_toRightOf="@+id/addTaskButton"
-        android:background="@drawable/roundshape" >
-    
-    <EditText
-        android:id="@+id/taskDescInput"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-        android:ems="10"
-        android:hint="@string/edit_desc"
-        android:inputType="textLongMessage" />
-</LinearLayout>
-
-    <Button
-        android:id="@+id/timeBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:onClick="chooseTime"
-        android:text="@string/set_time" />
-
-    <TextView
-        android:id="@+id/taskDescComp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/taskTitleCom"
         android:layout_below="@+id/LinearLayout01"
-        android:layout_marginTop="24dp"
-        android:text="@string/formTaskDesc"
-        android:textSize="22sp"
-        android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/dateBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/timeBtn"
-        android:onClick="chooseDate"
-        android:text="@string/set_date" />
-
-    <Button
-        android:id="@+id/setlocBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateBtn"
-        android:onClick="chooseDate"
-        android:text="@string/set_date" />
+        android:text="@string/set_reminder"
+        android:onClick="ReminderSwitchInit" />
 
 </RelativeLayout>

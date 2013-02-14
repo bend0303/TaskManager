@@ -37,9 +37,7 @@ public class TaskGeoSubBaseAdapter extends ArrayAdapter<Address> {
 		@Override
 		public void onClick(View v) {
 			Address a = items.get((Integer) v.getTag());
-			Intent intent = new Intent(context, TaskAddActivity.class);
-			intent.putExtra("Address", a);
-		//	TaskGeoSetActivity.this.setResult(TaskGeoSetActivity.RESULT_OK, intent);
+			((TaskGeoSetActivity) parentAct).returnLoc(a);
 			
 		}
 
@@ -58,7 +56,7 @@ public class TaskGeoSubBaseAdapter extends ArrayAdapter<Address> {
             TextView itemView = (TextView) view.findViewById(R.id.sugtext);
             if (itemView != null) {
                 // do whatever you want with your string and long
-                itemView.setText(item.getLocality()+", "+item.getCountryName());
+                itemView.setText(item.getLocality()+", "+item.getCountryName() + ", " +item.getFeatureName());
             }
          }
         view.setOnClickListener(locpicker);

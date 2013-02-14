@@ -7,10 +7,9 @@
     <string name="done">Done Button</string>
     <string name="title_activity_task_view_image">TaskViewImageActivity</string>
     <string name="title_activity_task_date_picker">DateTimePickerActivity</string>
-    <string name="time_text">Time Text</string>
+    <string name="time_text">No time reminder has been set</string>
     <string name="set_date">Set Date</string>
-    <string name="edit_title">Task Title</string>
-    <string name="edit_desc">Task Description</string>
+    <string name="edit_title">What do you need 2 do?</string>
     <string name="set_time">Set Time</string>
     <string name="image_description">Done Button</string>
     <string name="title_activity_task_add">TaskAddActivity</string>
@@ -33,5 +32,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_task_geo_set">TaskGeoSetActivity</string>
     <string name="chooseloc">Choose a location</string>
+    <string name="set_loc">Set Location</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="title_activity_test_tabs">TestTabsActivity</string>
+    <string name="loc_text">No location reminder has been set</string>
 
 </resources>

@@ -1,37 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabHost"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <LinearLayout
- 		android:layout_weight="1" 
+    <TabWidget
+        android:id="@android:id/tabs"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-       >
+        android:layout_height="wrap_content" />
 
-     <ImageButton
-         android:id="@+id/addButton"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_marginLeft="5dp"
-         android:layout_marginRight="5dp"
-         android:src="@drawable/srdeftg" />
-
-    </LinearLayout>
-    
-    <LinearLayout
- 		android:layout_weight="5" 
+    <FrameLayout
+        android:id="@android:id/tabcontent"
         android:layout_width="fill_parent"
-        android:layout_height="0dp" >
+        android:layout_height="fill_parent" >
 
-        <ListView
-            android:id="@+id/listV_main"
+        <LinearLayout
+            android:id="@+id/tab1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingTop="60dp" >
 
-        </ListView>
-    </LinearLayout>
+            <ListView
+                android:id="@+id/listV_main1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10" >
+            </ListView>
 
+            <RelativeLayout
+                android:id="@+id/buttomPanel"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/addpanel" >
 
-</LinearLayout>
+                <ImageButton
+                    android:id="@+id/addButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/nopressadd" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingTop="60dp" >
+
+            <ListView
+                android:id="@+id/listV_main2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </ListView>
+        </LinearLayout>
+    </FrameLayout>
+
+</TabHost>

@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -31,35 +34,37 @@ public class TaskGeoSetActivity extends Activity {
 	private TaskGeoSubBaseAdapter Adapter;
 	private ListView lv;
 	private static boolean isOnJob = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_task_geo_set);
 		lv = (ListView) findViewById(R.id.addsugliss);
-	
+
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		
+
 		final EditText location = (EditText) findViewById(R.id.location);
-		ImageView search = (ImageView) findViewById(R.id.searchimg);	
+		ImageView search = (ImageView) findViewById(R.id.searchimg);
 		search.setOnClickListener(new ImageView.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Location loc = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
 				new GetNearestSug(loc).execute(location.getText().toString());
-				
+
 			}
-			
+
 		});
 
-		
-		
 	}
-	 
-	public void testMethod() {
-		
+
+	public void returnLoc(Address a) {
+		Intent intent = new Intent();
+		intent.putExtra("ADDRESS", a);
+		setResult(TaskAddActivity.LOCATION_RES_OK, intent);
+		finish();
 	}
 
 	private class GetNearestSug extends AsyncTask<String, Integer, ArrayList<Address>> {
@@ -73,7 +78,6 @@ public class TaskGeoSetActivity extends Activity {
 		public GetNearestSug(Location location) {
 			mLocation = location;
 
-
 		}
 
 		@Override
@@ -81,9 +85,11 @@ public class TaskGeoSetActivity extends Activity {
 			// TODO Auto-generated method stub
 			if (isOnJob) {
 				return null;
-			} else isOnJob = true;
+			} else
+				isOnJob = true;
 			Geocoder gc = new Geocoder(getApplicationContext());
-			ArrayList<Address> addresses =  new ArrayList<Address>();;
+			ArrayList<Address> addresses = new ArrayList<Address>();
+			;
 			double lat = mLocation.getLatitude();
 			double lon = mLocation.getLongitude();
 			int i = 0;
@@ -94,13 +100,13 @@ public class TaskGeoSetActivity extends Activity {
 						double lowerLeftLongitude = translateLon(lon, SEARCH_RANGES[i]);
 						double upperRightLatitude = translateLat(lat, SEARCH_RANGES[i]);
 						double upperRightLongitude = translateLon(lon, -SEARCH_RANGES[i]);
-						
+
 						addresses.addAll(gc.getFromLocationName(params[0], 5, lowerLeftLatitude, lowerLeftLongitude, upperRightLatitude,
-								upperRightLongitude)); 
+								upperRightLongitude));
 
 					} else {
 						// last resort, try unbounded call with 20 result
-						addresses.addAll(gc.getFromLocationName(params[0], 20)); 
+						addresses.addAll(gc.getFromLocationName(params[0], 20));
 					}
 					i++;
 				} while ((addresses == null || addresses.size() < 4) && i < SEARCH_RANGES.length);
@@ -113,22 +119,25 @@ public class TaskGeoSetActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<Address> result) {
-			
+
 			super.onPostExecute(result);
-			if (result == null) return;
-			//suggestions = new ArrayList<String>(arrayToString(result));
+			if (result == null)
+				return;
+			// suggestions = new ArrayList<String>(arrayToString(result));
 			Adapter = new TaskGeoSubBaseAdapter(getApplicationContext(), R.id.sugtext, result);
+			Adapter.setActivity(TaskGeoSetActivity.this);
 			lv.setAdapter(Adapter);
 			lv.setItemsCanFocus(true);
 			isOnJob = false;
 		}
-		private ArrayList<String> arrayToString (ArrayList<Address> result) {
+
+		private ArrayList<String> arrayToString(ArrayList<Address> result) {
 			ArrayList<String> tmpArray = new ArrayList<String>();
-			for (Address a: result) {
+			for (Address a : result) {
 				tmpArray.add(a.getCountryName() + ", " + a.getFeatureName());
 			}
 			return tmpArray;
-			
+
 		}
 
 		private double translateLat(double lat, double dx) {
@@ -146,9 +155,20 @@ public class TaskGeoSetActivity extends Activity {
 
 		}
 
-
 	}
 
+	@Override
+	protected void onStart() {
+		EasyTracker.getInstance().setContext(this);
+		EasyTracker.getInstance().activityStart(this);
+		super.onStart();
+	}
+	@Override
+	protected void onStop() {
+		EasyTracker.getInstance().setContext(this);
+		EasyTracker.getInstance().activityStop(this);
+		super.onStop();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
