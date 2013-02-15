@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Main view list custom adapter
+ * ************************************
+ */
 import il.co.shenkar.todoproject.utils.AnimationHelper;
 import il.co.shenkar.todoproject.utils.TrackerHelper;
 

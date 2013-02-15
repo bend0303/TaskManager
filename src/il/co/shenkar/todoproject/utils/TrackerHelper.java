@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject.utils;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  EasyTracker 2.0 const assistant
+ * ************************************
+ */
 public class TrackerHelper {
 	
 	//Catagories

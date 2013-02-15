@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Task creating activity
+ * ************************************
+ */
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,7 +39,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;

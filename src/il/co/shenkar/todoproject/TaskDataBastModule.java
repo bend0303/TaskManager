@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  SQLite DB Implementation
+ * ************************************
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;

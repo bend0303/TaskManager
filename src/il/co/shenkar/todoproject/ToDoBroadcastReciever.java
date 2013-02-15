@@ -1,5 +1,16 @@
 package il.co.shenkar.todoproject;
-
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Customized Broadcast reciever 
+ * ************************************
+ */
 import il.co.shenkar.todoproject.R;
 import android.annotation.SuppressLint;
 import android.app.Notification;

@@ -1,5 +1,16 @@
 package il.co.shenkar.todoproject;
-
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Location search activity
+ * ************************************
+ */
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Done tasks tab list custom adapter
+ * ************************************
+ */
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -51,7 +63,7 @@ public class TaskDoneListBaseAdapter extends BaseAdapter {
 			convertView = l_Inflater.inflate(R.layout.task_done_view, null);
 			holder = new ViewHolder();
 			holder.txt_taskName = (TextView) convertView.findViewById(R.id.task);
-			holder.itemImage = (ImageView) convertView.findViewById(R.id.doneb);
+			holder.itemImage = (ImageView) convertView.findViewById(R.id.redx);
 			holder.itemImage.setOnClickListener(doneButtonOnClick);
 			convertView.setClickable(true);
 			convertView.setTag(holder);

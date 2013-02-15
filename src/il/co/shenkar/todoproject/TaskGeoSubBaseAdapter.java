@@ -1,5 +1,17 @@
 package il.co.shenkar.todoproject;
 
+/* ************************************
+ *  Shenkar Java mobile final project
+ * 
+ *  Created by:
+ *  Ben Diamant (bend0303@gmail.com)
+ *  Or Guz (Orguz100@gmail.com)
+ * 	=- Handed on 02/13 -=
+ * 
+ * ************************************
+ *  Location suggestions list adapter
+ * ************************************
+ */
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -52,10 +64,8 @@ public class TaskGeoSubBaseAdapter extends ArrayAdapter<Address> {
         
         Address item = items.get(position);
         if (item!= null) {
-            // My layout has only one TextView
             TextView itemView = (TextView) view.findViewById(R.id.sugtext);
             if (itemView != null) {
-                // do whatever you want with your string and long
                 itemView.setText(item.getLocality()+", "+item.getCountryName() + ", " +item.getFeatureName());
             }
          }

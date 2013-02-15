@@ -3,10 +3,10 @@
 
     <string name="app_name">Need 2 DO</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main</string>
     <string name="done">Done Button</string>
-    <string name="title_activity_task_view_image">TaskViewImageActivity</string>
-    <string name="title_activity_task_date_picker">DateTimePickerActivity</string>
+    <string name="title_activity_task_view_image">Need 2 Do</string>
+    <string name="title_activity_task_date_picker">Date Time picker</string>
     <string name="time_text">No time reminder has been set</string>
     <string name="set_date">Set Date</string>
     <string name="edit_title">What do you need 2 do?</string>
@@ -17,7 +17,6 @@
     <string name="enterText">Enter Your Text Here</string>
     <string name="formTaskDesc">Description:</string>
     <string name="title_activity_temp">MainActivity</string>
-    <string name="title_activity_task_single_view">TaskSingleViewActivity</string>
     <string name="randomButton">Random Task</string>
     <string name="cancelButton">Cancel</string>
     <string name="addButtonText">Add Task</string>
@@ -30,11 +29,10 @@
     <string name="donetext">Done</string>
     <string name="deletetext">Delete</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_task_geo_set">TaskGeoSetActivity</string>
+    <string name="title_activity_task_geo_set">Location search</string>
     <string name="chooseloc">Choose a location</string>
     <string name="set_loc">Set Location</string>
     <string name="set_reminder">Set Reminder</string>
-    <string name="title_activity_test_tabs">TestTabsActivity</string>
     <string name="loc_text">No location reminder has been set</string>
 
 </resources>
