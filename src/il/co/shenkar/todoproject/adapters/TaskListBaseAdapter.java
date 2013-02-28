@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.adapters;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,13 @@ package il.co.shenkar.todoproject;
  *  Main view list custom adapter
  * ************************************
  */
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.anim;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.activities.TaskAddActivity;
+import il.co.shenkar.todoproject.dao.TaskDataBaseModule;
+import il.co.shenkar.todoproject.entities.TaskDetails;
 import il.co.shenkar.todoproject.utils.AnimationHelper;
 import il.co.shenkar.todoproject.utils.TrackerHelper;
 
@@ -37,7 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TaskListBaseAdapter extends BaseAdapter {
-	private TaskDataBastModule tasksDataModule;
+	private TaskDataBaseModule tasksDataModule;
 	private LayoutInflater l_Inflater;
 	private Context context;
 	private final ArrayList<TaskDetails> deleteableItems;
@@ -80,7 +87,7 @@ public class TaskListBaseAdapter extends BaseAdapter {
 	};
 
 	public TaskListBaseAdapter(Context context, ArrayList<TaskDetails> results, TaskDoneListBaseAdapter doneAdapter) {
-		tasksDataModule = TaskDataBastModule.getInstance(context);
+		tasksDataModule = TaskDataBaseModule.getInstance(context);
 		l_Inflater = LayoutInflater.from(context);
 		this.context = context;
 		deleteableItems = new ArrayList<TaskDetails>();

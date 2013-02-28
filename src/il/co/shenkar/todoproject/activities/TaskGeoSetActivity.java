@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.activities;
 /* ************************************
  *  Shenkar Java mobile final project
  * 
@@ -11,6 +11,12 @@ package il.co.shenkar.todoproject;
  *  Location search activity
  * ************************************
  */
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.R.menu;
+import il.co.shenkar.todoproject.adapters.TaskGeoSubBaseAdapter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

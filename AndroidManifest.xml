@@ -37,14 +37,14 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <receiver android:name="il.co.shenkar.todoproject.ToDoBroadcastReciever" >
+        <receiver android:name="il.co.shenkar.todoproject.dao.ToDoBroadcastReciever" >
             <intent-filter>
                 <action android:name="android.intent.action.TASKS" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="il.co.shenkar.todoproject.TaskGeoSetActivity"
+            android:name="il.co.shenkar.todoproject.dao.TaskGeoSetActivity"
             android:label="@string/title_activity_task_geo_set"
             android:screenOrientation="portrait" >
         </activity>

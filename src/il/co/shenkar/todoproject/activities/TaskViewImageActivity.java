@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.activities;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,13 @@ package il.co.shenkar.todoproject;
  *  Application main activity
  * ************************************
  */
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.R.menu;
+import il.co.shenkar.todoproject.adapters.TaskDoneListBaseAdapter;
+import il.co.shenkar.todoproject.adapters.TaskListBaseAdapter;
+import il.co.shenkar.todoproject.dao.TaskDataBaseModule;
 import il.co.shenkar.todoproject.utils.TrackerHelper;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -32,7 +39,7 @@ import android.widget.TabHost.TabSpec;
 
 public class TaskViewImageActivity extends Activity {
 	private ListView lv1, lv2;
-	TaskDataBastModule dataModel;
+	TaskDataBaseModule dataModel;
 	//private Tracker mGaTracker;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,7 @@ public class TaskViewImageActivity extends Activity {
 		spec2.setIndicator("Done");
 		spec2.setContent(R.id.tab2);
 
-		dataModel = TaskDataBastModule.getInstance(getApplicationContext());
+		dataModel = TaskDataBaseModule.getInstance(getApplicationContext());
 
 		TaskDoneListBaseAdapter doneAdapter = new TaskDoneListBaseAdapter(this, dataModel.getDoneTasks());
 		lv2 = (ListView) findViewById(R.id.listV_main2);

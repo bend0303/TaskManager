@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.adapters;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,11 @@ package il.co.shenkar.todoproject;
  *  Location suggestions list adapter
  * ************************************
  */
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.activities.TaskGeoSetActivity;
+
 import java.util.ArrayList;
 
 import android.app.Activity;

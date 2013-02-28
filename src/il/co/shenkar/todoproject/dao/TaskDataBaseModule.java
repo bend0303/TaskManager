@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.dao;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,9 @@ package il.co.shenkar.todoproject;
  *  SQLite DB Implementation
  * ************************************
  */
+import il.co.shenkar.todoproject.entities.TaskDetails;
+import il.co.shenkar.todoproject.entities.TaskDetails.DateCompe;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -23,9 +26,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class TaskDataBastModule extends SQLiteOpenHelper {
+public class TaskDataBaseModule extends SQLiteOpenHelper {
 
-	private static TaskDataBastModule instance = null;
+	private static TaskDataBaseModule instance = null;
 	private ArrayList<TaskDetails> tasks;
 	private ArrayList<TaskDetails> doneTasks;
 
@@ -65,21 +68,21 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	private TaskDataBastModule(Context context) {
+	private TaskDataBaseModule(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		//context.deleteDatabase(DATABASE_NAME);
 		tasks = getTasks();
 		doneTasks = getDoneTasks();
 	}
 
-	public static TaskDataBastModule getInstance(Context context) {
+	public static TaskDataBaseModule getInstance(Context context) {
 		if (instance == null) {
-			instance = new TaskDataBastModule(context);
+			instance = new TaskDataBaseModule(context);
 		}
 		return instance;
 	}
 
-	void addTask(TaskDetails task) {
+	public void addTask(TaskDetails task) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(KEY_TITLE, task.getTaskTitle());
@@ -95,7 +98,7 @@ public class TaskDataBastModule extends SQLiteOpenHelper {
 		tasks.add(task);
 	}
 
-	void updateTask(TaskDetails task) {
+	public void updateTask(TaskDetails task) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(KEY_TITLE, task.getTaskTitle());

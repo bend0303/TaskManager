@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.activities;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,15 @@ package il.co.shenkar.todoproject;
  *  Task creating activity
  * ************************************
  */
+
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.anim;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.R.menu;
+import il.co.shenkar.todoproject.dao.TaskDataBaseModule;
+import il.co.shenkar.todoproject.entities.TaskDetails;
+import il.co.shenkar.todoproject.utils.ToDoBroadcastReciever;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -364,7 +373,7 @@ public class TaskAddActivity extends Activity {
 				addressLine, timeReminder, locReminder, TaskDetails.TODO_MODE);
 
 		updatedTask.setTaskId(pId);
-		TaskDataBastModule tasksModel = TaskDataBastModule.getInstance(getApplicationContext());
+		TaskDataBaseModule tasksModel = TaskDataBaseModule.getInstance(getApplicationContext());
 		tasksModel.updateTask(updatedTask);
 		if (setReminder) {
 			if (timeReminder)
@@ -380,7 +389,7 @@ public class TaskAddActivity extends Activity {
 		Intent intent = new Intent(this, TaskViewImageActivity.class);
 		TaskDetails newTask = new TaskDetails(taskTitle.getText().toString(), dateTime.getTimeInMillis(), System.currentTimeMillis(),
 				addressLine, timeReminder, locReminder, TaskDetails.TODO_MODE);
-		TaskDataBastModule tasksModel = TaskDataBastModule.getInstance(getApplicationContext());
+		TaskDataBaseModule tasksModel = TaskDataBaseModule.getInstance(getApplicationContext());
 
 		tasksModel.addTask(newTask);
 		tasksModel.sortTasks();

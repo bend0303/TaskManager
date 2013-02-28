@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.utils;
 /* ************************************
  *  Shenkar Java mobile final project
  * 
@@ -12,6 +12,10 @@ package il.co.shenkar.todoproject;
  * ************************************
  */
 import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.drawable;
+import il.co.shenkar.todoproject.activities.TaskViewImageActivity;
+import il.co.shenkar.todoproject.dao.TaskDataBaseModule;
+import il.co.shenkar.todoproject.entities.TaskDetails;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -29,7 +33,7 @@ public class ToDoBroadcastReciever extends BroadcastReceiver {
 		Intent nIntent = new Intent(context, TaskViewImageActivity.class);
 		int taskId = intent.getExtras().getInt("TASK_ID");
 		nIntent.putExtra("TASK_ID", taskId);
-		TaskDetails taskToView = TaskDataBastModule.getInstance(context).getTaskById(taskId);
+		TaskDetails taskToView = TaskDataBaseModule.getInstance(context).getTaskById(taskId);
 		PendingIntent pIntent = PendingIntent.getActivity(context, 0, nIntent, 0);
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Notification noti = new NotificationCompat.Builder(context).setContentTitle(taskToView.getTaskTitle())

@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.entities;
 
 /* ************************************
  *  Shenkar Java mobile final project

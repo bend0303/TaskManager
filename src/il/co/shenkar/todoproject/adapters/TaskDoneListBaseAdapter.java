@@ -1,4 +1,4 @@
-package il.co.shenkar.todoproject;
+package il.co.shenkar.todoproject.adapters;
 
 /* ************************************
  *  Shenkar Java mobile final project
@@ -12,6 +12,12 @@ package il.co.shenkar.todoproject;
  *  Done tasks tab list custom adapter
  * ************************************
  */
+import il.co.shenkar.todoproject.R;
+import il.co.shenkar.todoproject.R.id;
+import il.co.shenkar.todoproject.R.layout;
+import il.co.shenkar.todoproject.dao.TaskDataBaseModule;
+import il.co.shenkar.todoproject.entities.TaskDetails;
+
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -34,7 +40,7 @@ public class TaskDoneListBaseAdapter extends BaseAdapter {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			int position = (Integer) v.getTag();
-			TaskDataBastModule.getInstance(context).removeTask(tasks.get(position));
+			TaskDataBaseModule.getInstance(context).removeTask(tasks.get(position));
 			notifyDataSetChanged();
 		}
 	};
